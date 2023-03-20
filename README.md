@@ -1,2 +1,3 @@
 # BME450-lungcancerdetection
-Lung Cancer CT Detection Imaging and Analysis ## Jacob Hill and Jett Stad
+Lung Cancer CT Detection Imaging and Analysis ## Jacob Hill, Jett Stad, and John Morris
+## We plan to use a dataset of medical CT images that show different human lung diagrams. We will use a neural network in order to train the computer on how to detect if the patient has a tumor from their picture and determine what type of stage of cancer progression it is in. We will do this by training the network to visualize different colors (black and white) and sizes in order to make a prognosis similar to that of a specialized medical worker. By doing this we hope to be able to aid and improve the accuracy of future prognosis of CT scans for this type of disease. 
