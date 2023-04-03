@@ -139,5 +139,22 @@ class myCallback(tf.keras.callbacks.Callback):
 es = EarlyStopping(patience=3, monitor='val_accuracy', restore_best_weights=True) 
 lr = ReduceLROnPlateau(monitor='val_loss', patience=2, factor=0.5, verbose=1)
 
-                       
+history = model.fit(X_train, Y_train, validation_data = (X_val, Y_val), batch_size = BATCH_SIZE, epochs = EPOCHS, verbose = 1, callbacks = [es, lr, myCallback()])
+
+#Plotting
+history_df = pd.DataFrame(history.history)
+history_df.loc[:,['loss','val_loss']].plot()
+history_df.loc[:,['accuracy','val_accuracy']].plot() 
+plt.show()
+
+##Model Evaluation
+Y_pred = model.predict(X_val)
+Y_val = np.argmax(Y_val, axis=1)
+Y_pred = np.argmax(Y_pred, axis=1)
+
+##Confusion Metrics 
+metrics.confusion_matrix(Y_val, Y_pred)
+
+##Print Metrics
+print(metrics.classification_report(Y_val, Y_pred, target_names=classes))
    
