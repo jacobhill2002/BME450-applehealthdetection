@@ -1,6 +1,6 @@
 # BME450-lungcancerdetection
-Lung Cancer CT Detection Imaging and Analysis ## Jacob Hill, Jett Stad, and John Morris
-## We plan to use a dataset of medical CT images that show different human lung diagrams. We will use a neural network in order to train the computer on how to detect if the patient has a tumor from their picture and determine what type of stage of cancer progression it is in. We will do this by training the network to visualize different colors (black and white) and sizes in order to make a prognosis similar to that of a specialized medical worker. By doing this we hope to be able to aid and improve the accuracy of future prognosis of CT scans for this type of disease. 
+Lung Cancer CT Detection Imaging and Analysis # Jacob Hill, Jett Stad, and John Morris
+# We plan to use a dataset of medical CT images that show different human lung diagrams. We will use a neural network in order to train the computer on how to detect if the patient has a tumor from their picture and determine what type of stage of cancer progression it is in. We will do this by training the network to visualize different colors (black and white) and sizes in order to make a prognosis similar to that of a specialized medical worker. By doing this we hope to be able to aid and improve the accuracy of future prognosis of CT scans for this type of disease. 
 
 
 import numpy as np
@@ -23,7 +23,7 @@ from keras import layers
 import warnings
 warnings.filterwarnings('ignore')
 
-##Import dataset 
+#Import dataset 
 from zipfile import ZipFile
  
 data_path = 'lung-and-colon-cancer-histopathological-images.zip'
@@ -32,14 +32,14 @@ with ZipFile(data_path,'r') as zip:
   zip.extractall()
   print('The data set has been extracted.')
   
-##Data Visualization
+#Data Visualization
 path = 'lung_colon_image_set/lung_image_sets'
 classes = os.listdir(path)
 classes
 
 path = '/lung_colon_image_set/lung_image_sets'
  
-##Data Preparation For Training
+#Data Preparation For Training
 for cat in classes:
     image_dir = f'{path}/{cat}'
     images = os.listdir(image_dir)
@@ -54,7 +54,7 @@ for cat in classes:
         ax[i].axis('off')
     plt.show()
     
-##Hyperparameters
+#Hyperparameters
 IMG_SIZE = 256
 SPLIT = 0.2
 EPOCHS = 10
@@ -79,7 +79,7 @@ X_train, X_val, Y_train, Y_val = train_test_split(X, one_hot_encoded_Y, test_siz
 print(X_train.shape, X_val.shape)
 one_hot_encoded_Y = pd.get_dummies(Y).values
 
-##Model Development
+#Model Development
 model = keras.models.Sequential([
     layers.Conv2D(filters=32,
                   kernel_size=(5, 5),
@@ -118,13 +118,13 @@ model = keras.models.Sequential([
     show_dtype = True,
     show_layer_activations = True)
    
-##Optimization
+#Optimization
     model.compile(
     optimizer = 'adam',
     loss = 'categorical_crossentropy',
     metrics = ['accuracy'])
     
-##Callback
+#Callback
 from keras.callbacks import EarlyStopping, ReduceLROnPlateau
  
  
@@ -147,14 +147,14 @@ history_df.loc[:,['loss','val_loss']].plot()
 history_df.loc[:,['accuracy','val_accuracy']].plot() 
 plt.show()
 
-##Model Evaluation
+#Model Evaluation
 Y_pred = model.predict(X_val)
 Y_val = np.argmax(Y_val, axis=1)
 Y_pred = np.argmax(Y_pred, axis=1)
 
-##Confusion Metrics 
+#Confusion Metrics 
 metrics.confusion_matrix(Y_val, Y_pred)
 
-##Print Metrics
+#Print Metrics
 print(metrics.classification_report(Y_val, Y_pred, target_names=classes))
    
