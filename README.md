@@ -6,7 +6,7 @@ Detecting Spolied vs Rotten Apples # Jacob Hill, Jett Stad, and John Morris
 from google.colab import drive
 drive.mount("/content/drive")
 
-import os
+  import os
 import torch
 import torchvision
 import numpy as np
